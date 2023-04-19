@@ -1,0 +1,113 @@
+#include <iostream>
+using namespace std;
+
+class cqueue {
+    int *Iptr,R,F;
+     int s;
+
+    public :
+      //const int s;
+
+      cqueue( int size) {
+        Iptr = new int [size];
+        R = F = -1;
+        s = size;
+      }
+
+      void enque (int value) {
+        if(R == (s - 1) && F == 0  || R ==(F -1) ) {
+            cout << " queue is full !" ;
+            return ;
+        }
+        else if(F == -1 ) {
+
+       F = R = 0;
+       Iptr[R] = value;
+      }
+
+else if(R == s - 1 && F != 0) {
+    R = 0;
+    Iptr [R] = value;
+}
+else {
+    R++;
+    Iptr[R] = value;
+}
+
+      }
+
+
+   void deque() {
+    if(F == -1) {
+        cout<<"queue is already empty !" ;
+        return;
+    }
+    cout <<"value dequed = " << Iptr[F];
+
+    if(F == R)
+        R = F = -1;
+    
+        else 
+           F = (F + 1);
+    }
+
+
+void display () {
+    if(F == -1) {
+        cout <<"queue is empty" << endl;
+        return;
+    }
+
+    cout << "Elements are :" << endl;
+    if(F <= R) {
+        for(int i = F; i<= R;i++){
+             cout <<Iptr[i] <<" ";
+        }
+       
+    }
+
+    else {
+       for (int i = F; i<s; i++) {
+            cout <<Iptr[i] <<" ";
+           for (int i = 0; i<= R;i++) {
+            cout << Iptr[i];
+           }
+        }
+    
+
+    F = 0;
+    while (F <= R) {
+        cout <<Iptr[F] <<" ";
+        F++;
+    }
+}
+cout << endl;
+}
+
+// destructor 
+~ cqueue() {
+
+    delete Iptr;
+    cout <<"Heap memory is free now !"<< endl;
+}
+
+};
+
+
+int main () {
+     cqueue c(5);
+     c.enque(15);
+     c.enque(20);
+     c.display();
+
+     c.deque();
+     c.display();
+
+     c.deque();
+     cout << endl;
+
+     c.display();
+
+
+     return 0;
+}
